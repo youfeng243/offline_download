@@ -104,4 +104,5 @@ def store_company(province, company_name):
         'province': province,
         'in_time': util.get_now_time(),
     }
+    log.info("当前存储数据: province = {} company = {}".format(province, company_name))
     source_db.insert_batch_data(extend_table, [data])

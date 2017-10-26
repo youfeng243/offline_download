@@ -65,8 +65,3 @@ def get_phantom_proxy():
             pass
 
     raise Exception('重试获取代理失败...')
-
-
-if __name__ == "__main__":
-    all_ip = get_all_proxie()
-    pass

@@ -83,7 +83,6 @@ class JX(TaskBase):
                 self.parse(detail_url, session)
 
     def parse(self, url, session):
-
         resp = session.get(url, timeout=timeout)
         pq = PyQuery(resp.text, parser="html")
         name = pq.find("table#tblQyBaseInfo").find("tr").eq(0).find("td").eq(0).text()

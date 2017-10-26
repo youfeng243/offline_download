@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # coding:utf-8
-import random
+import json
 
-from sites.common.staticproxy import get_all_proxie
+import requests
+
+from conf.m_settings import log
 
 __author__ = 'clevertang'
 
@@ -15,13 +17,35 @@ logger = getLogger()
 default_retry = 3
 default_timeout = 10
 
-all_ip = get_all_proxie()
-
 
 def get_proxy():
-    ip = all_ip[random.randint(0, len(all_ip) - 1)]
-    logger.info("更换ip为:{}".format(ip))
-    return ip
+    proxy_url = 'http://101.132.128.78:18585/proxy'
+
+    user_config = {
+        'username': 'beihai',
+        'password': 'beihai',
+    }
+    for _ in xrange(3):
+
+        try:
+            r = requests.post(proxy_url, json=user_config, timeout=10)
+            if r.status_code != 200:
+                continue
+            json_data = json.loads(r.text)
+            is_success = json_data.get('success')
+            if not is_success:
+                continue
+
+            proxy = json_data.get('proxy')
+            if proxy is None:
+                continue
+            log.info("当前获取的代理: proxy = {}".format(proxy))
+            return {'http': proxy}
+        except Exception as e:
+            log.error("获取代理失败:")
+            log.exception(e)
+
+    return None
 
 
 class proxy_session(Session):
