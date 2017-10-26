@@ -3,9 +3,15 @@
 # @Author  gikieng.li
 # @Date    2017-02-25 10:19
 import json
+import sys
 import time
 
 import requests
+
+sys.path.append("..")
+sys.path.append("../..")
+sys.path.append("../../..")
+from conf.m_settings import log
 
 
 class TaskBase(object):
@@ -44,9 +50,10 @@ class TaskBase(object):
                 proxy = json_data.get('proxy')
                 if proxy is None:
                     continue
-
+                log.info("当前获取的代理: proxy = {}".format(proxy))
                 return {'http': proxy}
             except Exception as e:
-                pass
+                log.error("获取代理失败:")
+                log.exception(e)
 
         return None
