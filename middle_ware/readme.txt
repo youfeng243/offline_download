@@ -1,0 +1,1 @@
+examples.py 文件即为新注册企业主体(registration_company)发送数据的示例

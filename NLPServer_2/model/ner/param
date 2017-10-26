@@ -1,0 +1,6 @@
+name=ner
+max_seq_len=200
+emb_dim=300
+hidden_dim=200
+num_layers=1
+dropout_rate=0.5

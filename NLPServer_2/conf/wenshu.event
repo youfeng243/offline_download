@@ -1,0 +1,30 @@
+#正则表达式中支持ner实体，前后用%包围起来，例如%Organization%, %location%
+#支持的实体类别有："organization", "location", "person", "time", "currency"
+#不区分大小写
+#MatchOne表示在一个输入里该属性值是否只匹配一次（找到一个值就返回），默认为true
+
+Event: judge_wenshu
+#是否删除重复值，默认false
+RemoveDuplicate: true
+测试key = 测试value
+测试key2 = 测试value2
+
+Attribute:orglitigants
+MatchOne: false
+(%organization%)
+
+Attribute:plaintiff
+MatchOne: false
+$key1 = 原告|原告人|案外人|异议人|自诉人|上诉人|申诉人|起诉人|申请人|申报人|请求人
+$key2 = 执行人|复议人|异议人|再审人|申请单位|执行单位|被害单位|移送部门|公诉机关
+$key3 = 抗诉机关|执行机关|利害关系人
+#原告\S*(%organization%)
+#原告\S*(%person%)
+(?<!被|被申请|诉前保全)(?:${key1}|${key2}|${key3})[^,.。，]{0,5}(%organization%|%person%)
+通.?知.?书.{5,25}号.{0,10}(%organization%|%person%)
+
+Attribute:defendant
+MatchOne: false
+$key4 = 异议相对人|罪犯|被告|被告人|被上诉人|被起诉人|被申诉人|被申请人
+$key5 = 被执行人|被请求人|被申请执行人|赔偿义务机关|诉前保全申请人
+(?:${key4}|${key5})[^,.。，]{0,5}(%organization%|%person%)

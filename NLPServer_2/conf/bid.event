@@ -1,0 +1,51 @@
+#正则表达式中支持ner实体，前后用%包围起来，例如%Organization%, %location%
+#支持的实体类别有："organization", "location", "person", "date", "currency"等
+#不区分大小写
+
+Event: 招中标
+#此处可增加自定义的kv对，如:
+#key: value
+
+Trigger:
+#事件触发词或正则，如:
+#触发词
+#reg:触发的正则表达式
+
+Attribute: 招标机构
+#可增加MatchOne配置，表示以下正则是否只匹配一次，默认为true
+#MatchOne: true
+招标人.{0,5}(%organization%)
+项目法人.{0,5}(%organization%)
+采购单位及联系人电话.{0,5}.{0,5}(%Organization%)
+(%organization%).{0,5}采购公告
+建设单位.{0,5}(%organization%)
+采购机构.{0,5}(%organization%)
+业主.{0,5}(%organization%)
+
+
+
+Attribute: 代理机构
+招标代理.{0,5}(%organization%)
+(?:发布|代理)(?:公司|机构|单位|人).{0,5}(%Organization%)
+
+
+Attribute:中标机构
+MatchOne: false
+(?:中标|成交)(?:供应商|单位|机构|人).{0,5}(%Organization%)
+
+
+Attribute:候选机构
+MatchOne: false
+(?:候补|备选|签约|入围)(?:供应商|单位|机构|人).{0,5}(%organization%)
+成交(?:供应|候选).{0,5}(%organization%)
+
+
+Attribute:中标金额
+(?:成交|中标)(?:总?金额|价|单价).{0,5}(%currency%)
+
+Attribute:预算金额
+预算金额.{0,5}(%currency%)
+工程(?:项目预算|总投资).{0,5}(%currency%)
+
+Attribute:中标日期
+中标日期.{0,5}(%date%)

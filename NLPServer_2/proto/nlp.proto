@@ -1,0 +1,65 @@
+// Copyright 2015, Google Inc.
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//     * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above
+// copyright notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+//     * Neither the name of Google Inc. nor the names of its
+// contributors may be used to endorse or promote products derived from
+// this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.haizhi.nlp.server";
+option java_outer_classname = "HaiZhiNlp";
+option objc_class_prefix = "HZ";
+
+package nlp;
+
+// The nlp service definition.
+service Nlp {
+  rpc WordSegment (SentenceRequest) returns (SentenceReply) {}
+  rpc PosTag (SentenceRequest) returns (SentenceReply) {}
+  rpc NamedIdentityRecognize (SentenceRequest) returns (SentenceReply) {}
+  rpc OrgMatcher (SentenceRequest) returns (SentenceReply) {}
+  rpc Dependency (SentenceRequest) returns (SentenceReply) {}
+  rpc EntityLink (SentenceRequest) returns (SentenceReply) {}
+  rpc CompanySegment (SentenceRequest) returns (SentenceReply) {}
+  rpc Bid(SentenceRequest2) returns (SentenceReply) {}
+  rpc EventExtract(SentenceRequest2) returns (SentenceReply) {}
+}
+
+// The request message containing the sentence.
+message SentenceRequest {
+  string sentence = 1;
+}
+
+message SentenceRequest2 {
+  string sentence1 = 1;
+  string sentence2 = 2;
+}
+
+// The response message containing the results
+message SentenceReply {
+  string message = 1;
+}

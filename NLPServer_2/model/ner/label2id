@@ -1,0 +1,17 @@
+<PAD>	0
+S_location	1
+I_location	2
+E_time	3
+E_location	4
+I_time	5
+B_person	6
+I_organization	7
+O	8
+E_person	9
+B_time	10
+S_time	11
+S_organization	12
+I_person	13
+B_organization	14
+B_location	15
+E_organization	16
