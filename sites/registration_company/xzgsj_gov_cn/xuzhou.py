@@ -5,12 +5,11 @@
 import re
 import sys
 
-from conf.m_settings import store_company
-
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
 
+from conf.m_settings import store_company
 from pyquery import PyQuery
 
 from libs.fetcher import Fetcher

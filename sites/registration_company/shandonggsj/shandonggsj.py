@@ -8,11 +8,11 @@ import sys
 
 from pyquery import PyQuery
 
-from conf.m_settings import store_company
-
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
+
+from conf.m_settings import store_company
 
 from libs.fetcher import Fetcher
 from libs.loghandler import getLogger

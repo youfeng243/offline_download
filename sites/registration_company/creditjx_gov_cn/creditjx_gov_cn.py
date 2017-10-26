@@ -5,12 +5,12 @@
 import json
 import sys
 
-from conf.m_settings import store_company
-from sites.common.tx_session import proxy_session
-
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
+
+from conf.m_settings import store_company
+from sites.common.tx_session import proxy_session
 
 from pyquery import PyQuery
 
