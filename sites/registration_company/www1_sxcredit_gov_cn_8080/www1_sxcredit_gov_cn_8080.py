@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 
-import json
 import random
 import sys
 
@@ -16,7 +15,6 @@ from pyquery import PyQuery
 
 from libs.loghandler import getLogger
 
-from conf import m_settings
 from libs.taskbase import TaskBase
 import requests, sys
 
@@ -34,7 +32,6 @@ class SxCredit(TaskBase):
         TaskBase.__init__(self)
         self.resultCount = 0
         # self.fetcher = Fetcher(m_settings.mfile_database())
-        self.beans_client = m_settings.beanstalk_client()
         self.logger = getLogger(self.__class__.__name__, console_out=False, level="debug")
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
@@ -57,13 +54,12 @@ class SxCredit(TaskBase):
         extract_data = {
             "topic": "registration_company",
             "company": name,
-            "province": "陕西",
+            "province": "shanxi",
             "city": "",
             "registered_date": date,
             "_site_record_id": "www1.sxcredit.gov.cn",
             "url": url
         }
-        self.beans_client.put("offline_crawl_data", json.dumps(extract_data))
 
     def start(self):
         session = requests.session()

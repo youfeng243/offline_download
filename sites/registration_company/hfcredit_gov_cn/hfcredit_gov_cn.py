@@ -32,7 +32,6 @@ class HfCredit(TaskBase):
         TaskBase.__init__(self)
         self.resultCount = 0
         self.fetcher = Fetcher(m_settings.mfile_database())
-        self.beanstalkclient = m_settings.beanstalk_client()
         self.logger = getLogger(self.__class__.__name__, console_out=False, level="debug")
         self.province = "安徽省"
         self.city = "合肥"
@@ -51,13 +50,12 @@ class HfCredit(TaskBase):
         extract_data = {
             "topic": "registration_company",
             "company": name,
-            "province": "安徽",
+            "province": "anhui",
             "city": "安徽合肥",
             "registered_date": date,
             "_site_record_id": "hfcredit.gov.cn",
             "url": url
         }
-        self.beanstalkclient.put("offline_crawl_data", json.dumps(extract_data))
 
     # 在call的时候调用这个函数
     def start(self):

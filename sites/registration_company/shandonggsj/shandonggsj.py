@@ -4,7 +4,6 @@
 # 山东省工商局登记办理业务查询
 # @Author  clevertang
 # @Date    2017-7.12
-import json
 import random
 import sys
 
@@ -36,7 +35,6 @@ class Sd(TaskBase):
         TaskBase.__init__(self)
         self.resultCount = 0
         self.fetcher = Fetcher(m_settings.mfile_database())
-        self.beans_client = m_settings.beanstalk_client()
         self.logger = getLogger(self.__class__.__name__, console_out=False, level="debug")
         self.province = "山东"
         self.city = ""
@@ -49,13 +47,12 @@ class Sd(TaskBase):
         extract_data = {
             "topic": "registration_company",
             "company": name,
-            "province": "山东省",
+            "province": "shandong",
             "city": "",
             "registered_date": date,
             "_site_record_id": "218.57.139.23:8090",
             "url": url
         }
-        self.beans_client.put("offline_crawl_data", json.dumps(extract_data))
 
     def start(self):
         session = requests.session()

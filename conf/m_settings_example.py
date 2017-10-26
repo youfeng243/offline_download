@@ -59,7 +59,3 @@ def mfile_database():
     if MFILE_MONGO_BACKEND['user'] and MFILE_MONGO_BACKEND['password']:
         database.authenticate(MFILE_MONGO_BACKEND['user'], MFILE_MONGO_BACKEND['password'])
     return database
-
-
-def beanstalk_client():
-    return PyBeanstalk(BEANSTALKD["host"], BEANSTALKD['port'])

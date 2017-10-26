@@ -1,6 +1,5 @@
 # coding=utf-8
 # !/usr/bin/env python
-import json
 import random
 import sys
 
@@ -31,7 +30,6 @@ class GD(TaskBase):
         TaskBase.__init__(self)
         self.resultCount = 0
         self.fetcher = Fetcher(m_settings.mfile_database())
-        self.beans_client = m_settings.beanstalk_client()
         self.logger = getLogger(self.__class__.__name__, console_out=False, level="debug")
         self.province = "广东"
         self.city = ""
@@ -44,13 +42,12 @@ class GD(TaskBase):
         extract_data = {
             "topic": "registration_company",
             "company": name,
-            "province": "广东",
+            "province": "guangdong",
             "city": "",
             "registered_date": date,
             "_site_record_id": "wsnj.gdgs.gov.cn",
             "url": url
         }
-        self.beans_client.put("offline_crawl_data", json.dumps(extract_data))
 
     # 在call的时候调用这个函数
     def start(self):

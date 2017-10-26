@@ -2,7 +2,6 @@
 
 # !/usr/bin/env python
 # 访问某些页面时数据不存在,出现报错正常,通过异常处理重试失败后选择跳过
-import json
 import random
 import re
 import sys
@@ -31,7 +30,6 @@ class SH(TaskBase):
         TaskBase.__init__(self)
         self.resultCount = 0
         self.fetcher = Fetcher(m_settings.mfile_database())
-        self.beans_client = m_settings.beanstalk_client()
         self.logger = getLogger(self.__class__.__name__, console_out=False, level="debug")
         self.province = "上海"
         self.city = "上海"
@@ -52,13 +50,12 @@ class SH(TaskBase):
         extract_data = {
             "topic": "registration_company",
             "company": name,
-            "province": "上海",
+            "province": "shanghai",
             "city": "上海",
             "registered_date": date,
             "_site_record_id": "sgs.gov.cn",
             "url": url
         }
-        self.beans_client.put("offline_crawl_data", json.dumps(extract_data))
 
     # 在call的时候调用这个函数
     def start(self):

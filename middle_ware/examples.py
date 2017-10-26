@@ -17,7 +17,6 @@ from libs.taskbase import TaskBase
 class LanzhouPublicResourceTenderWorker(TaskBase):
     def __init__(self):
         TaskBase.__init__(self)
-        self.beanstalkclient = m_settings.beanstalk_client()
 
 
 

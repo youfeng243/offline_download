@@ -24,7 +24,7 @@ BEANSTALKD2 = {
 
 BEANSTALKD_TUBE = {
     "extract_info": "offline_extract_info",
-"download_rsp": "download_rsp",
+    "download_rsp": "download_rsp",
     "download_req": "download_req"
 }
 TOPICS = {
@@ -71,9 +71,5 @@ def mfile_database():
     return database
 
 
-def beanstalk_client():
-    return PyBeanstalk(BEANSTALKD["host"], BEANSTALKD['port'])
-
 def beanstalk_client2():
     return PyBeanstalk(BEANSTALKD2["host"], BEANSTALKD2['port'])
-

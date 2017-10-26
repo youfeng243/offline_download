@@ -33,7 +33,6 @@ class Bj(TaskBase):
         TaskBase.__init__(self)
         self.resultCount = 0
         self.fetcher = Fetcher(m_settings.mfile_database())
-        self.beans_client = m_settings.beanstalk_client()
         self.logger = getLogger(self.__class__.__name__, console_out=False, level="debug")
         self.province = "北京"
         self.city = "北京"
@@ -65,13 +64,12 @@ class Bj(TaskBase):
         extract_data = {
             "topic": "registration_company",
             "company": name,
-            "province": "北京",
+            "province": "beijing",
             "city": "北京",
             "registered_date": date,
             "_site_record_id": "xinyong.bjhd.gov.cn",
             "url": basic_url
         }
-        self.beans_client.put("offline_crawl_data", json.dumps(extract_data))
 
     def start(self):
         session = requests.session()
