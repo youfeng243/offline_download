@@ -2,18 +2,14 @@
 # encoding: utf-8
 # 只有一页列表页
 
-import random
 import re
 import sys
 
 from conf.m_settings import store_company
-from sites.common import util
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-
-from sites.common import staticproxy
 
 from pyquery import PyQuery
 
@@ -47,20 +43,9 @@ class Ln(TaskBase):
             "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
             "Accept-Encoding": "gzip, deflate",
         }
-        self.all_ip = staticproxy.get_all_proxie()
 
     def send_data(self, url, name, date):
         name = name.replace(" ", "")
-        extract_data = {
-            "topic": "registration_company",
-            "company": name,
-            "province": "liaoning",
-            "city": "",
-            "registered_date": date,
-            "_site_record_id": "lngs.gov.cn",
-            "url": url
-        }
-
         province = "liaoning"
         store_company(province, name)
 
@@ -114,11 +99,6 @@ class Ln(TaskBase):
         if try_count >= max_retry:
             self.logger.error("{}次重试访问详情页{}失败".format(max_retry, url))
             session.proxies = self.get_proxy()
-
-    def get_proxy(self):
-        ip = self.all_ip[random.randint(0, len(self.all_ip) - 1)]
-        self.logger.info("更换ip为:{}".format(ip))
-        return ip
 
 
 if __name__ == "__main__":

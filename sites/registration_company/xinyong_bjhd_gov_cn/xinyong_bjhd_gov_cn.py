@@ -5,16 +5,13 @@
 # @Author  clevertang
 # @Date    2017-7.12
 import json
-import random
 import sys
 
 from conf.m_settings import store_company
-from sites.common import util
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-from sites.common import staticproxy
 
 from libs.fetcher import Fetcher
 from libs.loghandler import getLogger
@@ -58,22 +55,9 @@ class Bj(TaskBase):
             "Referer": "http://xinyong.bjhd.gov.cn/compan/companList!companIndex.action",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
         }
-        self.all_ip = staticproxy.get_all_proxie()
-        if not isinstance(self.all_ip, list) or len(self.all_ip) <= 0:
-            raise Exception('代理初始化异常。。。')
 
     def send_data(self, name, date):
         name = name.replace(" ", "")
-        extract_data = {
-            "topic": "registration_company",
-            "company": name,
-            "province": "beijing",
-            "city": "北京",
-            "registered_date": date,
-            "_site_record_id": "xinyong.bjhd.gov.cn",
-            "url": basic_url
-        }
-
         province = "beijing"
         store_company(province, name)
 
@@ -136,11 +120,6 @@ class Bj(TaskBase):
                 self.logger.error("访问第一页出现未知的错误")
                 self.logger.exception(e)
         return 0
-
-    def get_proxy(self):
-        ip = self.all_ip[random.randint(0, len(self.all_ip) - 1)]
-        self.logger.info("更换ip为:{}".format(ip))
-        return ip
 
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@
 
 # !/usr/bin/env python
 # 访问某些页面时数据不存在,出现报错正常,通过异常处理重试失败后选择跳过
-import random
 import re
 import sys
 
@@ -10,12 +9,10 @@ import requests
 from pyquery import PyQuery
 
 from conf.m_settings import store_company
-from sites.common import util
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-from sites.common import staticproxy
 
 from libs.fetcher import Fetcher
 from libs.loghandler import getLogger
@@ -44,25 +41,12 @@ class SH(TaskBase):
                         "Upgrade - Insecure - Requests": "1",
                         "Cache - Control": "max-age=0"
                         }
-        self.all_ip = staticproxy.get_all_proxie()
-        if not isinstance(self.all_ip, list) or len(self.all_ip) <= 0:
-            raise Exception('代理初始化异常。。。')
 
     def send_data(self, url, name, date):
         name = name.replace(" ", "")
-        extract_data = {
-            "topic": "registration_company",
-            "company": name,
-            "province": "shanghai",
-            "city": "上海",
-            "registered_date": date,
-            "_site_record_id": "sgs.gov.cn",
-            "url": url
-        }
 
         province = "shanghai"
         store_company(province, name)
-
 
     # 在call的时候调用这个函数
     def start(self):
@@ -128,11 +112,6 @@ class SH(TaskBase):
                 self.logger.error("访问第一页出现未知的错误")
                 self.logger.exception(e)
         return 0
-
-    def get_proxy(self):
-        ip = self.all_ip[random.randint(0, len(self.all_ip) - 1)]
-        self.logger.info("更换ip为:{}".format(ip))
-        return ip
 
 
 if __name__ == "__main__":

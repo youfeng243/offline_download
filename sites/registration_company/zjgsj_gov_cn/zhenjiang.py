@@ -2,7 +2,6 @@
 # encoding: utf-8
 # -*- coding:UTF-8 -*-
 
-import random
 import re
 import sys
 
@@ -11,8 +10,6 @@ from conf.m_settings import store_company
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-
-from sites.common import staticproxy
 
 from pyquery import PyQuery
 
@@ -46,21 +43,9 @@ class ZhenJ(TaskBase):
             "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
             "Accept-Encoding": "gzip, deflate",
         }
-        self.all_ip = staticproxy.get_all_proxie()
-        if not isinstance(self.all_ip, list) or len(self.all_ip) <= 0:
-            raise Exception('代理初始化异常。。。')
 
     def send_data(self, url, name):
         name = name.replace(" ", "")
-        extract_data = {
-            "topic": "registration_company",
-            "company": name,
-            "province": "jiangsu",
-            "city": "镇江",
-            "registered_date": "",
-            "_site_record_id": "sqgsj.gov.cn",
-            "url": url
-        }
 
         province = "jiangsu"
         store_company(province, name)
@@ -99,12 +84,6 @@ class ZhenJ(TaskBase):
             if try_cnt >= max_retry:
                 self.logger.error("{}次重试第{}页失败...".format(url, i))
                 session.proxies = self.get_proxy()
-
-    def get_proxy(self):
-        all_ip = self.all_ip
-        ip = all_ip[random.randint(0, len(all_ip) - 1)]
-        self.logger.info("更换ip为:{}".format(ip))
-        return ip
 
     def get_cookie(self):
         session = requests.session()

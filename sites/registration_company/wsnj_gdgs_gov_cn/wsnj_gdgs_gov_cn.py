@@ -1,18 +1,15 @@
 # coding=utf-8
 # !/usr/bin/env python
-import random
 import sys
 
 import requests
 from pyquery import PyQuery
 
 from conf.m_settings import store_company
-from sites.common import util
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-from sites.common import staticproxy
 
 from libs.fetcher import Fetcher
 from libs.loghandler import getLogger
@@ -36,25 +33,12 @@ class GD(TaskBase):
         self.logger = getLogger(self.__class__.__name__, console_out=False, level="debug")
         self.province = "广东"
         self.city = ""
-        self.all_ip = staticproxy.get_all_proxie()
-        if not isinstance(self.all_ip, list) or len(self.all_ip) <= 0:
-            raise Exception('代理初始化异常。。。')
 
     def send_data(self, url, name, date):
         name = name.replace(" ", "")
-        extract_data = {
-            "topic": "registration_company",
-            "company": name,
-            "province": "guangdong",
-            "city": "",
-            "registered_date": date,
-            "_site_record_id": "wsnj.gdgs.gov.cn",
-            "url": url
-        }
 
         province = "guangdong"
         store_company(province, name)
-
 
     # 在call的时候调用这个函数
     def start(self):
@@ -86,11 +70,6 @@ class GD(TaskBase):
             if try_count >= max_retry:
                 self.logger.error("访问详情页第{}页{}次重试失败".format(i, max_retry))
                 session.proxies = self.get_proxy()
-
-    def get_proxy(self):
-        ip = self.all_ip[random.randint(0, len(self.all_ip) - 1)]
-        self.logger.info("更换ip为:{}".format(ip))
-        return ip
 
 
 if __name__ == "__main__":

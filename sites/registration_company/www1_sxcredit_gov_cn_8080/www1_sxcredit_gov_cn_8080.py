@@ -2,17 +2,13 @@
 # encoding: utf-8
 
 
-import random
 import sys
 
 from conf.m_settings import store_company
-from sites.common import util
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-
-from sites.common import staticproxy
 
 from pyquery import PyQuery
 
@@ -42,9 +38,7 @@ class SxCredit(TaskBase):
             "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
             "Accept-Encoding": "gzip, deflate",
         }
-        self.all_ip = staticproxy.get_all_proxie()
-        if not isinstance(self.all_ip, list) or len(self.all_ip) <= 0:
-            raise Exception('代理初始化异常。。。')
+
         self.params = {
             "pageSize": 20,
             "pageNo": "",
@@ -142,11 +136,6 @@ class SxCredit(TaskBase):
         if try_count >= max_retry:
             self.logger.error("访问详情页{}次重试失败,url为:".format(max_retry, url))
             session.proxies = self.get_proxy()
-
-    def get_proxy(self):
-        ip = self.all_ip[random.randint(0, len(self.all_ip) - 1)]
-        self.logger.info("更换ip为:{}".format(ip))
-        return ip
 
     def get_pages(self, session):
         self.params["page"] = 1

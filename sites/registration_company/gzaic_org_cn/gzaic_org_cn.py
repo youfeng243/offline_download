@@ -3,18 +3,14 @@
 # -*- coding:UTF-8 -*-
 # 本网站只记录最近五天的企业信息,所以手动设置一个pagenum,出现错误提示解析列表页第四页失败很正常
 
-import random
 import sys
 
 from conf.m_settings import store_company
-from sites.common import util
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
 from sites.common.tx_session import proxy_session
-
-from sites.common import staticproxy
 
 from pyquery import PyQuery
 
@@ -40,21 +36,9 @@ class Gz(TaskBase):
             "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
             "Accept-Encoding": "gzip, deflate",
         }
-        self.all_ip = staticproxy.get_all_proxie()
-        if not isinstance(self.all_ip, list) or len(self.all_ip) <= 0:
-            raise Exception('代理初始化异常。。。')
 
     def send_data(self, url, name, date):
         name = name.replace(" ", "")
-        extract_data = {
-            "topic": "registration_company",
-            "company": name,
-            "province": "guizhou",
-            "city": "",
-            "registered_date": date,
-            "_site_record_id": "gzaic.org.cn",
-            "url": url
-        }
 
         province = "guizhou"
         store_company(province, name)
@@ -81,11 +65,6 @@ class Gz(TaskBase):
 
                 self.send_data(url, name, date)
                 self.logger.info("成功获取{0}下{1}".format(url, name))
-
-    def get_proxy(self):
-        ip = self.all_ip[random.randint(0, len(self.all_ip) - 1)]
-        self.logger.info("更换ip为:{}".format(ip))
-        return ip
 
 
 if __name__ == "__main__":

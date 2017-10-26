@@ -6,14 +6,11 @@ import json
 import sys
 
 from conf.m_settings import store_company
-from sites.common import util
 from sites.common.tx_session import proxy_session
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-
-from sites.common import staticproxy
 
 from pyquery import PyQuery
 
@@ -44,9 +41,6 @@ class JX(TaskBase):
             "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
             "Accept-Encoding": "gzip, deflate",
         }
-        self.all_ip = staticproxy.get_all_proxie()
-        if not isinstance(self.all_ip, list) or len(self.all_ip) <= 0:
-            raise Exception('代理初始化异常。。。')
         self.params = {
             "cxfs": 0,
             "cxfw": "QYMC-",
@@ -61,15 +55,6 @@ class JX(TaskBase):
 
     def send_data(self, url, name, date):
         name = name.replace(" ", "")
-        extract_data = {
-            "topic": "registration_company",
-            "company": name,
-            "province": "jiangxi",
-            "city": "",
-            "registered_date": date,
-            "_site_record_id": "creditjx.gov.cn",
-            "url": url
-        }
         province = "jiangxi"
         store_company(province, name)
 
