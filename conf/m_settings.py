@@ -11,7 +11,10 @@ import os
 
 from pymongo import MongoClient
 
+from conf.logger import Gsxtlogger
+from conf.mongo import MongDb
 from libs.pybeanstalkd import PyBeanstalk
+from sites.common import util
 
 BEANSTALKD = {
     "host": "cs2",
@@ -73,3 +76,32 @@ def mfile_database():
 
 def beanstalk_client2():
     return PyBeanstalk(BEANSTALKD2["host"], BEANSTALKD2['port'])
+
+
+mongo_db_source = {
+    'host': "172.17.1.119",
+    'port': 40042,
+    'db': 'company_data',
+    "username": 'work',
+    "password": 'haizhi',
+}
+
+log = Gsxtlogger('mongo.log').get_logger()
+
+source_db = MongDb(mongo_db_source['host'], mongo_db_source['port'], mongo_db_source['db'],
+                   mongo_db_source['username'],
+                   mongo_db_source['password'], log=log)
+
+extend_table = 'extend_company_list'
+
+log.info("mongodb初始化完成..")
+
+
+def store_company(province, company_name):
+    data = {
+        '_id': util.generator_id({}, company_name, province),
+        'company_name': company_name,
+        'province': province,
+        'in_time': util.get_now_time(),
+    }
+    source_db.insert_batch_data(extend_table, [data])

@@ -10,6 +10,9 @@ import sys
 
 import requests
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -56,6 +59,9 @@ class HfCredit(TaskBase):
             "_site_record_id": "hfcredit.gov.cn",
             "url": url
         }
+
+        province = "anhui"
+        store_company(province, name)
 
     # 在call的时候调用这个函数
     def start(self):

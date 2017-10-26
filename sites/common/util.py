@@ -137,16 +137,6 @@ def check_html(text):
     return True
 
 
-# 生成mongodb存储ID
-def generator_id(param_dict, company, province):
-    hash_key = ''
-    for key, value in param_dict.iteritems():
-        hash_key += str(value) + '#'
-    hash_key += company + '#'
-    hash_key += province + '#'
-    return hashlib.sha256(hash_key).hexdigest()
-
-
 def re_find_one(pattern, string):
     datas = re.findall(pattern, string)
     if len(datas) > 0:
@@ -293,3 +283,13 @@ def run_cmd(cmd):
         else:
             break
     p.wait()
+
+
+# 生成mongodb存储ID
+def generator_id(param_dict, company, province):
+    hash_key = ''
+    for key, value in param_dict.iteritems():
+        hash_key += str(value) + '#'
+    hash_key += company + '#'
+    hash_key += province + '#'
+    return hashlib.sha256(hash_key).hexdigest()

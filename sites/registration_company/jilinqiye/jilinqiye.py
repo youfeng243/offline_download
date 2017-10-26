@@ -7,6 +7,9 @@ import json
 import random
 import sys
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -64,6 +67,9 @@ class JiLin(TaskBase):
             "_site_record_id": "36.48.62.24:8704",
             "url": url
         }
+
+        province = "jilin"
+        store_company(province, name)
 
     def start(self):
         session = requests.session()

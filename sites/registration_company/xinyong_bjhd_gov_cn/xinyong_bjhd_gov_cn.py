@@ -8,6 +8,9 @@ import json
 import random
 import sys
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -70,6 +73,9 @@ class Bj(TaskBase):
             "_site_record_id": "xinyong.bjhd.gov.cn",
             "url": basic_url
         }
+
+        province = "beijing"
+        store_company(province, name)
 
     def start(self):
         session = requests.session()

@@ -4,6 +4,9 @@
 import random
 import sys
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -50,6 +53,9 @@ class HuNan(TaskBase):
             "_site_record_id": "zcj.hnaic.gov.cn",
             "url": url
         }
+
+        province = "hunan"
+        store_company(province, name)
 
     def start(self):
         session = requests.session()

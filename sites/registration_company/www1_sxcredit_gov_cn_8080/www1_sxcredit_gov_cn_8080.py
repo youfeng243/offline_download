@@ -5,6 +5,9 @@
 import random
 import sys
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -60,6 +63,9 @@ class SxCredit(TaskBase):
             "_site_record_id": "www1.sxcredit.gov.cn",
             "url": url
         }
+
+        province = "shanxi"
+        store_company(province, name)
 
     def start(self):
         session = requests.session()

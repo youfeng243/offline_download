@@ -6,6 +6,9 @@ import sys
 import requests
 from pyquery import PyQuery
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -48,6 +51,10 @@ class GD(TaskBase):
             "_site_record_id": "wsnj.gdgs.gov.cn",
             "url": url
         }
+
+        province = "guangdong"
+        store_company(province, name)
+
 
     # 在call的时候调用这个函数
     def start(self):

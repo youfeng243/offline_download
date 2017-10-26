@@ -5,6 +5,8 @@
 import json
 import sys
 
+from conf.m_settings import store_company
+from sites.common import util
 from sites.common.tx_session import proxy_session
 
 sys.path.append("..")
@@ -68,6 +70,8 @@ class JX(TaskBase):
             "_site_record_id": "creditjx.gov.cn",
             "url": url
         }
+        province = "jiangxi"
+        store_company(province, name)
 
     def start(self):
         url = basic_url

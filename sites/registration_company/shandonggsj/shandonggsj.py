@@ -9,6 +9,9 @@ import sys
 
 from pyquery import PyQuery
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -53,6 +56,9 @@ class Sd(TaskBase):
             "_site_record_id": "218.57.139.23:8090",
             "url": url
         }
+
+        province = "shandong"
+        store_company(province, name)
 
     def start(self):
         session = requests.session()

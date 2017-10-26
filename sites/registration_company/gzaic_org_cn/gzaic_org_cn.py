@@ -6,6 +6,9 @@
 import random
 import sys
 
+from conf.m_settings import store_company
+from sites.common import util
+
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
@@ -52,6 +55,9 @@ class Gz(TaskBase):
             "_site_record_id": "gzaic.org.cn",
             "url": url
         }
+
+        province = "guizhou"
+        store_company(province, name)
 
     def start(self):
         session = proxy_session()
