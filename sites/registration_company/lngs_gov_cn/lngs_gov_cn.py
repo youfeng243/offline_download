@@ -11,7 +11,6 @@ sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
 
-
 from sites.common import staticproxy
 
 from pyquery import PyQuery
@@ -98,7 +97,7 @@ class Ln(TaskBase):
                 for i in xrange(1, len(all_list) - 1):
                     date = all_list[i].split("\t")[0]
                     name = all_list[i].split("\t")[2]
-                    self.logger.info("成功获取{},注册时间为{}".format(name,date))
+                    self.logger.info("成功获取{},注册时间为{}".format(name, date))
                     self.send_data(url, name, date)
                 break
             except requests.RequestException as e:

@@ -6,8 +6,8 @@ import json
 import random
 import re
 import sys
+
 import requests
-import time
 from pyquery import PyQuery
 
 sys.path.append("..")

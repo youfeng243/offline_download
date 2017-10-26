@@ -10,7 +10,6 @@ sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
 
-
 from sites.common import staticproxy
 
 from pyquery import PyQuery

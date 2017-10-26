@@ -7,12 +7,12 @@
 import json
 import random
 import sys
+
 import requests
 
 sys.path.append("..")
 sys.path.append("../..")
 sys.path.append("../../..")
-
 
 from sites.common import staticproxy
 

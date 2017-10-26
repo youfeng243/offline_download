@@ -3,7 +3,6 @@
 
 
 import json
-import random
 import sys
 
 from sites.common.tx_session import proxy_session
@@ -21,7 +20,7 @@ from libs.loghandler import getLogger
 
 from conf import m_settings
 from libs.taskbase import TaskBase
-import requests, sys
+import sys
 
 reload(sys)
 sys.setdefaultencoding('utf8')

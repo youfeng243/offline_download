@@ -2,10 +2,10 @@
 # !/usr/bin/env python
 import json
 import random
+import sys
 
 import requests
 from pyquery import PyQuery
-import sys
 
 sys.path.append("..")
 sys.path.append("../..")
@@ -62,7 +62,7 @@ class GD(TaskBase):
             while try_count < max_retry:
                 try_count += 1
                 try:
-                    result = requests.get(url=url,timeout=timeout).content
+                    result = requests.get(url=url, timeout=timeout).content
                     content = result.decode('gbk')
                     pq_result = PyQuery(content, parser='html')
                     things = pq_result.find('table.border')
@@ -80,7 +80,7 @@ class GD(TaskBase):
                     self.logger.error("访问列表页{}出现未知的错误".format(i))
                     self.logger.exception(e)
             if try_count >= max_retry:
-                self.logger.error("访问详情页第{}页{}次重试失败".format(i,max_retry))
+                self.logger.error("访问详情页第{}页{}次重试失败".format(i, max_retry))
                 session.proxies = self.get_proxy()
 
     def get_proxy(self):

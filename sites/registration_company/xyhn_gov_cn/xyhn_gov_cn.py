@@ -6,7 +6,6 @@
 import json
 import random
 import sys
-import time
 
 sys.path.append("..")
 sys.path.append("../..")
@@ -18,7 +17,7 @@ from libs.loghandler import getLogger
 
 from conf import m_settings
 from libs.taskbase import TaskBase
-import requests, sys
+import requests
 
 # reload(sys)
 # sys.setdefaultencoding('utf8')
@@ -73,7 +72,7 @@ class HeNan(TaskBase):
     def start(self):
         session = requests.session()
         session.proxies = self.get_proxy()
-        session.headers=self.headers
+        session.headers = self.headers
         pages = self.get_pages(session)
         if pages < 1:
             self.logger.error("获取页码失败")
