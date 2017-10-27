@@ -94,6 +94,8 @@ source_db = MongDb(mongo_db_source['host'], mongo_db_source['port'], mongo_db_so
 
 extend_table = 'extend_company_list'
 
+offline_seed_table = 'offline_all_list'
+
 log.info("mongodb初始化完成..")
 
 
@@ -106,3 +108,4 @@ def store_company(province, company_name):
     }
     log.info("当前存储数据: province = {} company = {}".format(province, company_name))
     source_db.insert_batch_data(extend_table, [data])
+    source_db.insert_batch_data(offline_seed_table, [data])
